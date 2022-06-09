@@ -27,13 +27,6 @@
         if (consentCreatePersonalizedContent && consentSelectPersonalizedContent && consentMeasureContentPerformance) {
           exponea.start();
         }
-
-        // remove the ourself to not get called more than once
-        __tcfapi('removeEventListener', 2, (success) => {
-          if(success) {
-            // oh good...
-          }
-        }, tcData.listenerId);
       } else {
         console.warn('tcData unsuccesful', tcData);
       }
