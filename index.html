@@ -14,6 +14,29 @@
       target: "https://cloud-api.exponea.com",
       token: "2831cf48-0f7f-11ea-a46d-a2c248993972",
     });
+
+    const tcfCallback = (tcData, success) => {
+      if(success && tcData.eventStatus === 'tcloaded') {
+        // do something with tcData.tcString
+        console.warn('tcData tcloaded', tcData);
+        console.warn('purpose.consents', tcData.purpose.consents);
+        console.warn('purpose.legitimateInterests', tcData.purpose.legitimateInterests)
+        
+        // remove the ourself to not get called more than once
+        __tcfapi('removeEventListener', 2, (success) => {
+          if(success) {
+            // oh good...
+          }
+        }, tcData.listenerId);
+      } else {
+        console.warn('tcData else', tcData);
+        console.warn('purpose.consents', tcData.purpose.consents);
+        console.warn('purpose.legitimateInterests', tcData.purpose.legitimateInterests)
+      }
+    }
+
+    __tcfapi('addEventListener', 2, tcfCallback);
+
     exponea.start();
   </script>
 
