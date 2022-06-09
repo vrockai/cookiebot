@@ -16,7 +16,7 @@
     });
 
     const tcfCallback = (tcData, success) => {
-      if(success && tcData.eventStatus === 'tcloaded') {
+      if(success && (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete')) {
         // do something with tcData.tcString
         console.warn('tcData tcloaded', tcData);
 
