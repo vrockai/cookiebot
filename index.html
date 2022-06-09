@@ -19,9 +19,15 @@
       if(success && tcData.eventStatus === 'tcloaded') {
         // do something with tcData.tcString
         console.warn('tcData tcloaded', tcData);
-        console.warn('purpose.consents', tcData.purpose.consents);
-        console.warn('purpose.legitimateInterests', tcData.purpose.legitimateInterests)
-        
+
+        const consentCreatePersonalizedContent = tcData.purpose.consents[5];
+        const consentSelectPersonalizedContent = tcData.purpose.consents[6];
+        const consentMeasureContentPerformance = tcData.purpose.consents[8];
+
+        if (consentCreatePersonalizedContent && consentSelectPersonalizedContent && consentMeasureContentPerformance) {
+          exponea.start();
+        }
+
         // remove the ourself to not get called more than once
         __tcfapi('removeEventListener', 2, (success) => {
           if(success) {
@@ -29,15 +35,11 @@
           }
         }, tcData.listenerId);
       } else {
-        console.warn('tcData else', tcData);
-        console.warn('purpose.consents', tcData.purpose.consents);
-        console.warn('purpose.legitimateInterests', tcData.purpose.legitimateInterests)
+        console.warn('tcData unsuccesful', tcData);
       }
     }
 
     __tcfapi('addEventListener', 2, tcfCallback);
-
-    exponea.start();
   </script>
 
   <meta charset="utf-8">
